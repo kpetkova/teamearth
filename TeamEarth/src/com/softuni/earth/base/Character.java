@@ -10,7 +10,7 @@ import java.util.List;
  * @author marto
  *
  */
-public abstract class Character {
+public abstract class Character extends GameObject {
 
 	/**
 	 * The name of the character. It could be used to identify different game

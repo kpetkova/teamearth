@@ -1,6 +1,6 @@
 package com.softuni.earth.base;
 
-public abstract class Item {
+public abstract class Item extends GameObject {
 
 	protected int healthEffect;
 
