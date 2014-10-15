@@ -1,4 +1,6 @@
-package com.softuni.earth.base;
+package com.softuni.earth.base.objects;
+
+import com.softuni.earth.base.GameObject;
 
 public abstract class Item extends GameObject {
 

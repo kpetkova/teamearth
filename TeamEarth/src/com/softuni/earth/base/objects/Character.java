@@ -1,7 +1,11 @@
-package com.softuni.earth.base;
+package com.softuni.earth.base.objects;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.softuni.earth.base.GameObject;
+
+import javafx.scene.effect.Light.Point;
 
 /**
  * Abstract class representing a character in the game. Holds the information
@@ -18,12 +22,6 @@ public abstract class Character extends GameObject {
 	 */
 	protected String name;
 
-	/**
-	 * The current position of the character - where the character is on the
-	 * field (in the array)
-	 */
-	protected int[][] position;
-
 	protected int healthPoints;
 
 	protected int defensePoints;
@@ -38,7 +36,7 @@ public abstract class Character extends GameObject {
 
 	protected boolean isAlive;
 
-	protected Character(String name, int[][] position, int healthPoints,
+	protected Character(String name, Point position, int healthPoints,
 			int defensePoints, int manaPoints, int range) {
 		this.name = name;
 		this.position = position;
@@ -56,15 +54,7 @@ public abstract class Character extends GameObject {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public int[][] getPosition() {
-		return position;
-	}
-
-	public void setPosition(int[][] position) {
-		this.position = position;
-	}
-
+	
 	public int getHealthPoints() {
 		return healthPoints;
 	}
