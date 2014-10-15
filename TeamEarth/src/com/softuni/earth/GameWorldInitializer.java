@@ -3,6 +3,8 @@
  */
 package com.softuni.earth;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import com.softuni.earth.base.GameObject;
@@ -26,8 +28,13 @@ public class GameWorldInitializer extends GameWorld {
 
 	@Override
 	public void initGame(Stage primaryStage) {
-		// TODO Auto-generated method stub
-		
+		BorderPane root = new BorderPane();
+		Scene scene = new Scene(root, 400, 400);
+		scene.getStylesheets().add(
+				getClass().getResource("application.css").toExternalForm());
+
+		primaryStage.setScene(scene);
+		primaryStage.setTitle(this.getGameTitle());
 	}
 
 
