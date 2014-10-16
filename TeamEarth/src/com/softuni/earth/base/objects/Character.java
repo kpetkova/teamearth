@@ -112,10 +112,17 @@ public abstract class Character extends GameObject {
 	}
 
 	protected void applyItemEffect(Item item) {
-		this.healthPoints = item.getHealthEffect();
-		this.defensePoints = item.getDefenseEffect();
-		this.manaPoints = item.getManaEffect();
-		this.attackPower = item.getAttackEffect();
+		this.healthPoints += item.getHealthEffect();
+		this.defensePoints += item.getDefenseEffect();
+		this.manaPoints += item.getManaEffect();
+		this.attackPower += item.getAttackEffect();
+	}
+	
+	protected void removeItemEffect(Item item) {
+		this.healthPoints -= item.getHealthEffect();
+		this.defensePoints -= item.getDefenseEffect();
+		this.manaPoints -= item.getManaEffect();
+		this.attackPower -= item.getAttackEffect();
 	}
 
 	protected abstract void addToInventory(Item item);
