@@ -1,6 +1,7 @@
 package com.softuni.earth.base.objects;
 
-import javafx.scene.effect.Light.Point;
+import java.awt.Point;
+
 
 public class Orc extends Enemy {
 

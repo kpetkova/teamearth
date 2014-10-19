@@ -1,24 +1,24 @@
 package com.softuni.earth.base;
 
+import java.awt.Point;
+
 import javafx.scene.Node;
-import javafx.scene.effect.Light.Point;
 
 public abstract class GameObject {
-	
 
-	protected int id;
-	
+	// protected int id;
+
 	protected Point position;
-	
+
 	private Node node;
 
-	protected int getId() {
-		return id;
-	}
-
-	protected void setId(int id) {
-		this.id = id;
-	}
+	// protected String getId() {
+	// return id;
+	// }
+	//
+	// protected void setId(String id) {
+	// this.id = id;
+	// }
 
 	public Point getPosition() {
 		return position;

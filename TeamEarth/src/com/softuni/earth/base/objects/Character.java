@@ -1,11 +1,10 @@
 package com.softuni.earth.base.objects;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.softuni.earth.base.GameObject;
-
-import javafx.scene.effect.Light.Point;
 
 /**
  * Abstract class representing a character in the game. Holds the information
@@ -54,7 +53,7 @@ public abstract class Character extends GameObject {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public int getHealthPoints() {
 		return healthPoints;
 	}
@@ -117,7 +116,7 @@ public abstract class Character extends GameObject {
 		this.manaPoints += item.getManaEffect();
 		this.attackPower += item.getAttackEffect();
 	}
-	
+
 	protected void removeItemEffect(Item item) {
 		this.healthPoints -= item.getHealthEffect();
 		this.defensePoints -= item.getDefenseEffect();

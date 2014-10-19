@@ -1,28 +1,25 @@
 package com.softuni.earth;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 import com.softuni.earth.base.GameField;
 import com.softuni.earth.base.GameWorld;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-
 public class Main extends Application {
-	
-    GameWorld gameWorld = new GameWorldInitializer(60, "Team Earth game");
-    
+
+	private GameWorld gameWorld = new GameWorldInitializer(60,
+			"Team Earth game", 500, 500);
+
 	@Override
 	public void start(Stage primaryStage) {
-		try {		
-			
-	        // setup title, scene, stats, controls, and actors.
-	        gameWorld.initGame(primaryStage);
-	 
-	        // kick off the game loop
-	        gameWorld.beginGame();	 
-			
-			primaryStage.show();
+		try {
+			// setup title, scene, stats, controls, and actors.
+			gameWorld.initGame(primaryStage);
+
+			// kick off the game loop
+			gameWorld.beginGame();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

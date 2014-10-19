@@ -1,6 +1,6 @@
 package com.softuni.earth.base.objects;
 
-import javafx.scene.effect.Light.Point;
+import java.awt.Point;
 
 /**
  * Class representing the Player character, inheriting the Character class.
@@ -8,10 +8,10 @@ import javafx.scene.effect.Light.Point;
 
 public class Player extends Character {
 
-	protected Player(String name, Point position, int healthPoints,
+	public Player(String name, Point position, int healthPoints,
 			int defensePoints, int manaPoints, int range) {
 		super(name, position, healthPoints, defensePoints, manaPoints, range);
-		
+
 	}
 
 	@Override

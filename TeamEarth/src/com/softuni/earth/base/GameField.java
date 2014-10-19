@@ -32,12 +32,6 @@ public class GameField {
 	}
 
 	public void runGame() {
-		for (int i = 0; i < fieldCols; i++) {
-			for (int k = 0; k < fieldRows; k++) {
-				System.out.print(k + ": " + gameField[i][k] + " ");
-			}
-			System.out.println();
-		}
 	}
 
 	// TODO: Random items,bonuses, creatures on startup?

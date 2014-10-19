@@ -1,6 +1,6 @@
 package com.softuni.earth.base.objects;
 
-import javafx.scene.effect.Light.Point;
+import java.awt.Point;
 
 public class Skeleton extends Enemy {
 
@@ -9,5 +9,4 @@ public class Skeleton extends Enemy {
 		super(name, position, healthPoints, defensePoints, manaPoints, range);
 		// TODO Auto-generated constructor stub
 	}
-
 }

@@ -21,8 +21,12 @@ public class GameObjectManager {
 	public void addObjects(List<GameObject> objects) {
 		GAME_OBJECTS.addAll(objects);
 	}
+	
+	public void addObject(GameObject object) {
+		GAME_OBJECTS.add(object);
+	}
 	 
-	public void remoteObjects(List<GameObject> objects) {
+	public void removeObjects(List<GameObject> objects) {
 		GAME_OBJECTS.removeAll(objects);
 	}
 }
