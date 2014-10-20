@@ -16,16 +16,21 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import com.softuni.earth.base.GameObject;
 import com.softuni.earth.base.GameWorld;
+import com.softuni.earth.base.objects.Cup;
+import com.softuni.earth.base.objects.Item;
 import com.softuni.earth.base.objects.Player;
 import com.softuni.earth.listeners.ExitButtonOnClickListener;
 import com.softuni.earth.listeners.SceneKeyPressedListener;
 import com.softuni.earth.listeners.StartGameButtonOnClickListener;
 import com.softuni.earth.utils.Constants;
+import com.sun.javafx.geom.Arc2D;
 
 /**
  * @author kpetkova
@@ -144,12 +149,28 @@ public class GameWorldInitializer extends GameWorld {
 		circle.setVisible(false);
 		circle.setId("TestCircle");
 
-		Player circlePlayer = new Player("Asd", null, 1, 1, 1, 1);
+		GameObject circlePlayer = new Player("Asd", null, 1, 1, 1, 1);
 		circlePlayer.setNode(circle);
 		circlePlayer.setPosition(new Point(50, 50));
+		
+		Arc arc = new Arc();
+		
+		arc.setRadiusX(5.0f);
+		arc.setRadiusY(5.0f);
+		arc.setStartAngle(45.0f);
+		arc.setLength(270.0f);
+		arc.setVisible(false);
+		arc.setId("Cup");
+		arc.setType(ArcType.ROUND);
+		
+		GameObject item = new Cup();
+		item.setNode(arc);
+		item.setPosition(new Point(200, 200));
 
 		getGameObjectManager().addObject(circlePlayer);
+		getGameObjectManager().addObject(item);
 		root.getChildren().add(circle);
+		root.getChildren().add(arc);
 	}
 
 	private void initStageSquare() {

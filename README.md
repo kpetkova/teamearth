@@ -7,6 +7,11 @@ This is a RPG which consists of the following objects:
 	- A player
 	- A board 
 	- Items with different specifics that are shown on the board
-	
-The game is turn-based. On each turn the player is using items to fight/move 
-and receives/loses points for this.
+
+	1. да насочва и да стреля 
+	2. да се появяват скелети на произволни места
+	3. скелетите да се движат праволинейно и като ги улучва да се махат
+	4. ако не ги улучи и попаднат върху него му се отнема от живота
+	5. като му се отнема от живота се появяват някакви червени цифри и като свърши живота да умира
+	6. като уцелва скелети натрупва точки
+	7. ако ходи по полето и намира зелени неща му се възстановява живот и се появяват зелени цифри
