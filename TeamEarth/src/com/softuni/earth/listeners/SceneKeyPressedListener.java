@@ -7,10 +7,12 @@ import com.softuni.earth.base.GameObject;
 import com.softuni.earth.base.GameObjectManager;
 import com.softuni.earth.base.objects.Player;
 
+import javafx.animation.TranslateTransition;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 /**
  * Listener that should be set to the scene in order to update the objects when
@@ -53,36 +55,49 @@ public class SceneKeyPressedListener implements EventHandler<KeyEvent> {
 	private void moveDown() {
 		if (player instanceof Player) {
 			Node playerNode = player.getNode();
-			double translateY = playerNode.getTranslateY();
+//			double translateY = playerNode.getTranslateY();
 
-			playerNode.setTranslateY(translateY + 20f);
+			TranslateTransition smoothMove = new TranslateTransition(Duration.millis(200), playerNode);
+			smoothMove.setByY(20f);
+			smoothMove.setAutoReverse(true);
+			smoothMove.play();
 		}
 	}
 
 	private void moveUp() {
 		if (player instanceof Player) {
 			Node playerNode = player.getNode();
-			double translateY = playerNode.getTranslateY();
+//			double translateY = playerNode.getTranslateY();
 
-			playerNode.setTranslateY(translateY - 20f);
+			TranslateTransition smoothMove = new TranslateTransition(Duration.millis(200), playerNode);
+			smoothMove.setByY(-20f);
+			smoothMove.setAutoReverse(true);
+			smoothMove.play();
 		}
 	}
 
 	private void moveLeft() {
 		if (player instanceof Player) {
 			Node playerNode = player.getNode();
-			double translateX = playerNode.getTranslateX();
+//			double translateX = playerNode.getTranslateX();
 
-			playerNode.setTranslateX(translateX - 20f);
+			TranslateTransition smoothMove = new TranslateTransition(Duration.millis(200), playerNode);
+			smoothMove.setByX(-20f);
+			smoothMove.setAutoReverse(true);
+			smoothMove.play();
 		}
 	}
 
 	private void moveRight() {
 		if (player instanceof Player) {
 			Node playerNode = player.getNode();
-			double translateX = playerNode.getTranslateX();
+//			double translateX = playerNode.getTranslateX();
 
-			playerNode.setTranslateX(translateX + 20f);
+			//playerNode.setTranslateX(translateX + 20f);
+			TranslateTransition smoothMove = new TranslateTransition(Duration.millis(200), playerNode);
+			smoothMove.setByX(20f);
+			smoothMove.setAutoReverse(true);
+			smoothMove.play();
 		}
 	}
 }
