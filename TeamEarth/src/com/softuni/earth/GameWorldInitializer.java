@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 
 import com.softuni.earth.base.GameObject;
 import com.softuni.earth.base.GameWorld;
+import com.softuni.earth.base.objects.Bullet;
 import com.softuni.earth.base.objects.Cup;
 import com.softuni.earth.base.objects.Item;
 import com.softuni.earth.base.objects.Player;
@@ -151,7 +153,7 @@ public class GameWorldInitializer extends GameWorld {
 
 		GameObject circlePlayer = new Player("Asd", null, 1, 1, 1, 1);
 		circlePlayer.setNode(circle);
-		circlePlayer.setPosition(new Point(50, 50));
+		circlePlayer.setPosition(new Point2D(50, 50));
 		
 		Arc arc = new Arc();
 		
@@ -165,12 +167,22 @@ public class GameWorldInitializer extends GameWorld {
 		
 		GameObject item = new Cup();
 		item.setNode(arc);
-		item.setPosition(new Point(200, 200));
+		item.setPosition(new Point2D(200, 200));
+		
+		Circle bulletCircle = new Circle(5f);
+		bulletCircle.setFill(Color.RED);
+		bulletCircle.setVisible(false);
+		bulletCircle.setId("TestCircle");
+		
+		GameObject bullet = new Bullet(circlePlayer);
+		bullet.setNode(bulletCircle);
 
 		getGameObjectManager().addObject(circlePlayer);
 		getGameObjectManager().addObject(item);
+		getGameObjectManager().addObject(bullet);
 		root.getChildren().add(circle);
 		root.getChildren().add(arc);
+		root.getChildren().add(bulletCircle);
 	}
 
 	private void initStageSquare() {

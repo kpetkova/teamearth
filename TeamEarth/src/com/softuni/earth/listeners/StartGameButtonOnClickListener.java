@@ -1,10 +1,10 @@
 package com.softuni.earth.listeners;
 
-import java.awt.Point;
 import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 
@@ -33,9 +33,13 @@ public class StartGameButtonOnClickListener implements
 
 		for (GameObject currentObject : allObjects) {
 			Node node = currentObject.getNode();
-			Point position = currentObject.getPosition();
-			node.setTranslateX(position.getX());
-			node.setTranslateY(position.getY());
+			Point2D position = currentObject.getPosition();
+			if(position!=null) {
+				node.setTranslateX(position.getX());
+				node.setTranslateY(position.getY());
+				
+			}
+			
 			node.setVisible(true);
 		}
 	}

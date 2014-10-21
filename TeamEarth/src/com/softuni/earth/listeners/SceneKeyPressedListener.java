@@ -2,17 +2,16 @@ package com.softuni.earth.listeners;
 
 import java.util.List;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 import com.softuni.earth.GameWorldInitializer;
 import com.softuni.earth.base.GameObject;
 import com.softuni.earth.base.GameObjectManager;
+import com.softuni.earth.base.objects.Bullet;
 import com.softuni.earth.base.objects.Player;
-
-import javafx.animation.TranslateTransition;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.util.Duration;
 
 /**
  * Listener that should be set to the scene in order to update the objects when
@@ -27,6 +26,7 @@ import javafx.util.Duration;
 public class SceneKeyPressedListener implements EventHandler<KeyEvent> {
 
 	private GameObject player;
+	private GameObject bullet;
 
 	public SceneKeyPressedListener(GameWorldInitializer gameWorldInitializer) {
 		GameObjectManager gameObjectManager = gameWorldInitializer
@@ -34,6 +34,8 @@ public class SceneKeyPressedListener implements EventHandler<KeyEvent> {
 		List<GameObject> allObjects = gameObjectManager.getAllObjects();
 		// This should be the player.
 		player = allObjects.get(0);
+		bullet = allObjects.get(2);
+		
 	}
 
 	public void handle(final KeyEvent event) {
@@ -47,57 +49,53 @@ public class SceneKeyPressedListener implements EventHandler<KeyEvent> {
 			moveUp();
 		} else if (code.equals(KeyCode.DOWN)) {
 			moveDown();
+		} else if(code.equals(KeyCode.SPACE)) {
+			shoot();
 		}
 
 		event.consume();
 	}
 
+	private void shoot() {
+		Point2D shootDirection = new Point2D(5f, 5f);
+		if(bullet instanceof Bullet) {
+			Bullet thisBullet = (Bullet) bullet;
+			thisBullet.setDirection(shootDirection);
+			thisBullet.update();
+		}
+	}
+
 	private void moveDown() {
 		if (player instanceof Player) {
-			Node playerNode = player.getNode();
-//			double translateY = playerNode.getTranslateY();
-
-			TranslateTransition smoothMove = new TranslateTransition(Duration.millis(200), playerNode);
-			smoothMove.setByY(20f);
-			smoothMove.setAutoReverse(true);
-			smoothMove.play();
+			Point2D moveBy = new Point2D(0, 20f);
+			player.setPosition(moveBy);
+			player.update();			
 		}
 	}
 
 	private void moveUp() {
 		if (player instanceof Player) {
-			Node playerNode = player.getNode();
-//			double translateY = playerNode.getTranslateY();
-
-			TranslateTransition smoothMove = new TranslateTransition(Duration.millis(200), playerNode);
-			smoothMove.setByY(-20f);
-			smoothMove.setAutoReverse(true);
-			smoothMove.play();
+			Point2D moveBy = new Point2D(0, -20f);
+			player.setPosition(moveBy);
+			player.update();	
 		}
 	}
 
 	private void moveLeft() {
 		if (player instanceof Player) {
-			Node playerNode = player.getNode();
-//			double translateX = playerNode.getTranslateX();
-
-			TranslateTransition smoothMove = new TranslateTransition(Duration.millis(200), playerNode);
-			smoothMove.setByX(-20f);
-			smoothMove.setAutoReverse(true);
-			smoothMove.play();
+			Point2D moveBy = new Point2D(-20f, 0);
+			player.setPosition(moveBy);
+			player.update();		
 		}
 	}
 
 	private void moveRight() {
 		if (player instanceof Player) {
-			Node playerNode = player.getNode();
-//			double translateX = playerNode.getTranslateX();
-
-			//playerNode.setTranslateX(translateX + 20f);
-			TranslateTransition smoothMove = new TranslateTransition(Duration.millis(200), playerNode);
-			smoothMove.setByX(20f);
-			smoothMove.setAutoReverse(true);
-			smoothMove.play();
+			Point2D moveBy = new Point2D(20f, 0);
+			player.setPosition(moveBy);
+			player.update();
 		}
 	}
+	
+	
 }

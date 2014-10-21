@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.geometry.Point2D;
+
 import com.softuni.earth.base.GameObject;
 
 /**
@@ -35,7 +37,7 @@ public abstract class Character extends GameObject {
 
 	protected boolean isAlive;
 
-	protected Character(String name, Point position, int healthPoints,
+	protected Character(String name, Point2D position, int healthPoints,
 			int defensePoints, int manaPoints, int range) {
 		this.name = name;
 		this.position = position;
