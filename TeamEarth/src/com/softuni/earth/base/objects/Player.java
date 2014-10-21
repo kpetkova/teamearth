@@ -1,7 +1,5 @@
 package com.softuni.earth.base.objects;
 
-import java.awt.Point;
-
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
 import javafx.util.Duration;
@@ -11,6 +9,8 @@ import javafx.util.Duration;
  */
 
 public class Player extends Character {
+
+	private boolean isFacingRightDirection = true;
 
 	public Player(String name, Point2D position, int healthPoints,
 			int defensePoints, int manaPoints, int range) {
@@ -32,11 +32,19 @@ public class Player extends Character {
 
 	@Override
 	public void update() {
-		TranslateTransition smoothMove = new TranslateTransition(Duration.millis(200), this.getNode());
-		smoothMove.setByX(this.getPosition().getX());
-		smoothMove.setByY(this.getPosition().getY());
+		TranslateTransition smoothMove = new TranslateTransition(
+				Duration.millis(200), this.getNode());
+		smoothMove.setByX(getMoveBy().getX());
+		smoothMove.setByY(getMoveBy().getY());
 		smoothMove.setAutoReverse(true);
 		smoothMove.play();
 	}
 
+	public boolean isFacingRight() {
+		return isFacingRightDirection;
+	}
+
+	public void setFacingRightDirection(boolean isFacingRightDirection) {
+		this.isFacingRightDirection = isFacingRightDirection;
+	}
 }

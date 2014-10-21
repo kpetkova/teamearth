@@ -11,6 +11,8 @@ public abstract class GameObject {
 
 	private Node node;
 
+	protected Point2D moveBy;
+
 	// protected String getId() {
 	// return id;
 	// }
@@ -23,8 +25,16 @@ public abstract class GameObject {
 		return position;
 	}
 
-	public void setPosition(Point2D moveBy) {
-		this.position = moveBy;
+	public void setPosition(Point2D position) {
+		this.position = position;
+	}
+
+	public Point2D getMoveBy() {
+		return moveBy;
+	}
+
+	public void setMoveBy(Point2D moveBy) {
+		this.moveBy = moveBy;
 	}
 
 	public Node getNode() {
@@ -34,19 +44,31 @@ public abstract class GameObject {
 	public void setNode(Node node) {
 		this.node = node;
 	}
-	
-    /**
-     * Update current object
-     */
-    public abstract void update();
-    
-    /**
-     * Do we have a collision between two objects?
-     *
-     */
-    public boolean collide(GameObject other) {
-    	//TODO version 0.0 Update logic
-    	
-        return false;
-    }
+
+	/**
+	 * Update current object
+	 */
+	public abstract void update();
+
+	/**
+	 * Do we have a collision between two objects?
+	 *
+	 */
+	public boolean collide(GameObject other) {
+		// TODO version 0.0 Update logic
+
+		return false;
+	}
+
+	public void updatePosition(Point2D moveBy) {
+		double x = 0;
+		double y = 0;
+		if (position != null) {
+			x = position.getX();
+			y = position.getY();
+		}
+		Point2D newPosition = new Point2D(x + moveBy.getX(), y + moveBy.getY());
+		setMoveBy(new Point2D(moveBy.getX(), moveBy.getY()));
+		setPosition(newPosition);
+	}
 }

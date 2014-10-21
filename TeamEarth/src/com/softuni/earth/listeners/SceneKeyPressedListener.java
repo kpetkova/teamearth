@@ -4,6 +4,7 @@ import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -25,17 +26,29 @@ import com.softuni.earth.base.objects.Player;
  */
 public class SceneKeyPressedListener implements EventHandler<KeyEvent> {
 
-	private GameObject player;
+	private Player player;
+
 	private GameObject bullet;
 
-	public SceneKeyPressedListener(GameWorldInitializer gameWorldInitializer) {
-		GameObjectManager gameObjectManager = gameWorldInitializer
-				.getGameObjectManager();
+	private GameObjectManager gameObjectManager;
+
+	private Group root;
+
+	public SceneKeyPressedListener(GameWorldInitializer gameWorldInitializer,
+			Group root) {
+		this.root = root;
+		gameObjectManager = gameWorldInitializer.getGameObjectManager();
 		List<GameObject> allObjects = gameObjectManager.getAllObjects();
-		// This should be the player.
-		player = allObjects.get(0);
-		bullet = allObjects.get(2);
-		
+		// bullet = allObjects.get(2);
+		initObjects(allObjects);
+	}
+
+	private void initObjects(List<GameObject> allObjects) {
+		for (GameObject currentObject : allObjects) {
+			if (currentObject instanceof Player) {
+				player = (Player) currentObject;
+			}
+		}
 	}
 
 	public void handle(final KeyEvent event) {
@@ -49,7 +62,7 @@ public class SceneKeyPressedListener implements EventHandler<KeyEvent> {
 			moveUp();
 		} else if (code.equals(KeyCode.DOWN)) {
 			moveDown();
-		} else if(code.equals(KeyCode.SPACE)) {
+		} else if (code.equals(KeyCode.SPACE)) {
 			shoot();
 		}
 
@@ -57,45 +70,48 @@ public class SceneKeyPressedListener implements EventHandler<KeyEvent> {
 	}
 
 	private void shoot() {
-		Point2D shootDirection = new Point2D(5f, 5f);
-		if(bullet instanceof Bullet) {
-			Bullet thisBullet = (Bullet) bullet;
-			thisBullet.setDirection(shootDirection);
-			thisBullet.update();
-		}
+		Bullet bullet = new Bullet(player);
+		gameObjectManager.addObject(bullet);
+		root.getChildren().add(bullet.getNode());
+		boolean isRight = player.isFacingRight();
+
+		bullet.setRight(isRight);
+		bullet.update();
+
 	}
 
 	private void moveDown() {
 		if (player instanceof Player) {
 			Point2D moveBy = new Point2D(0, 20f);
-			player.setPosition(moveBy);
-			player.update();			
+			player.updatePosition(moveBy);
+			player.update();
 		}
 	}
 
 	private void moveUp() {
 		if (player instanceof Player) {
 			Point2D moveBy = new Point2D(0, -20f);
-			player.setPosition(moveBy);
-			player.update();	
+			player.updatePosition(moveBy);
+			player.update();
 		}
 	}
 
 	private void moveLeft() {
 		if (player instanceof Player) {
 			Point2D moveBy = new Point2D(-20f, 0);
-			player.setPosition(moveBy);
-			player.update();		
+			player.updatePosition(moveBy);
+			player.setFacingRightDirection(false);
+			player.update();
 		}
 	}
 
 	private void moveRight() {
 		if (player instanceof Player) {
 			Point2D moveBy = new Point2D(20f, 0);
-			player.setPosition(moveBy);
+			player.updatePosition(moveBy);
+			player.setFacingRightDirection(true);
 			player.update();
 		}
 	}
-	
-	
+
 }

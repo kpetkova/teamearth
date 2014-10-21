@@ -5,19 +5,15 @@ package com.softuni.earth.base;
 
 import java.util.List;
 
-import com.softuni.earth.listeners.KeyFrameEventListener;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TimelineBuilder;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import com.softuni.earth.listeners.KeyFrameEventListener;
 
 /**
  * @author kpetkova

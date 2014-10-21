@@ -3,15 +3,13 @@
  */
 package com.softuni.earth;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -26,13 +24,11 @@ import com.softuni.earth.base.GameObject;
 import com.softuni.earth.base.GameWorld;
 import com.softuni.earth.base.objects.Bullet;
 import com.softuni.earth.base.objects.Cup;
-import com.softuni.earth.base.objects.Item;
 import com.softuni.earth.base.objects.Player;
 import com.softuni.earth.listeners.ExitButtonOnClickListener;
 import com.softuni.earth.listeners.SceneKeyPressedListener;
 import com.softuni.earth.listeners.StartGameButtonOnClickListener;
 import com.softuni.earth.utils.Constants;
-import com.sun.javafx.geom.Arc2D;
 
 /**
  * @author kpetkova
@@ -98,7 +94,7 @@ public class GameWorldInitializer extends GameWorld {
 		// Create main menu and characters
 		initCharacters();
 		createMainMenu(root);
-		
+
 		setSceneNodes(root);
 		Scene scene = createScene();
 		setGameSurface(scene);
@@ -154,9 +150,20 @@ public class GameWorldInitializer extends GameWorld {
 		GameObject circlePlayer = new Player("Asd", null, 1, 1, 1, 1);
 		circlePlayer.setNode(circle);
 		circlePlayer.setPosition(new Point2D(50, 50));
-		
+
+		List<Node> itemsList = initItems();
+
+//		GameObject bullet = new Bullet(circlePlayer);
+
+		getGameObjectManager().addObject(circlePlayer);
+//		getGameObjectManager().addObject(bullet);
+		root.getChildren().add(circle);
+		root.getChildren().addAll(itemsList);
+//		root.getChildren().add(bullet.getNode());
+	}
+
+	private List<Node> initItems() {
 		Arc arc = new Arc();
-		
 		arc.setRadiusX(5.0f);
 		arc.setRadiusY(5.0f);
 		arc.setStartAngle(45.0f);
@@ -164,25 +171,15 @@ public class GameWorldInitializer extends GameWorld {
 		arc.setVisible(false);
 		arc.setId("Cup");
 		arc.setType(ArcType.ROUND);
-		
+
+		List<Node> itemsList = new ArrayList<Node>();
+		itemsList.add(arc);
+
 		GameObject item = new Cup();
 		item.setNode(arc);
 		item.setPosition(new Point2D(200, 200));
-		
-		Circle bulletCircle = new Circle(5f);
-		bulletCircle.setFill(Color.RED);
-		bulletCircle.setVisible(false);
-		bulletCircle.setId("TestCircle");
-		
-		GameObject bullet = new Bullet(circlePlayer);
-		bullet.setNode(bulletCircle);
-
-		getGameObjectManager().addObject(circlePlayer);
 		getGameObjectManager().addObject(item);
-		getGameObjectManager().addObject(bullet);
-		root.getChildren().add(circle);
-		root.getChildren().add(arc);
-		root.getChildren().add(bulletCircle);
+		return itemsList;
 	}
 
 	private void initStageSquare() {
@@ -200,7 +197,7 @@ public class GameWorldInitializer extends GameWorld {
 		Scene scene = new Scene(root, width, height, Color.YELLOW);
 		scene.getStylesheets().add(
 				getClass().getResource("application.css").toExternalForm());
-		scene.setOnKeyPressed(new SceneKeyPressedListener(this));
+		scene.setOnKeyPressed(new SceneKeyPressedListener(this, root));
 		return scene;
 	}
 }
