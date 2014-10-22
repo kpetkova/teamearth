@@ -32,10 +32,15 @@ public class Player extends Character {
 
 	@Override
 	public void update() {
+		//Updating player with armory or health points
+	}
+	
+	@Override
+	public void updatePosition(Point2D position) {
 		TranslateTransition smoothMove = new TranslateTransition(
 				Duration.millis(200), this.getNode());
-		smoothMove.setByX(getMoveBy().getX());
-		smoothMove.setByY(getMoveBy().getY());
+		smoothMove.setByX(position.getX());
+		smoothMove.setByY(position.getY());
 		smoothMove.setAutoReverse(true);
 		smoothMove.play();
 	}

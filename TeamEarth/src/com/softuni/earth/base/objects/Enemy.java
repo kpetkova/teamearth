@@ -1,6 +1,8 @@
 package com.softuni.earth.base.objects;
 
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
+import javafx.util.Duration;
 
 
 public class Enemy extends Character {
@@ -25,11 +27,22 @@ public class Enemy extends Character {
 		this.removeItemEffect(item);
 		this.inventory.remove(item);
 	}
+	
+
+
+	@Override
+	public void updatePosition(Point2D position) {
+		TranslateTransition smoothMove = new TranslateTransition(
+				Duration.millis(300), this.getNode());
+		smoothMove.setByX(this.getPosition().getX() + position.getX());
+		smoothMove.setByY(this.getPosition().getY() + position.getY());
+		smoothMove.setAutoReverse(true);
+		smoothMove.play();
+	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		updatePosition(new Point2D(2f, 0f));
 	}
 
 }

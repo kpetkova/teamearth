@@ -45,6 +45,10 @@ public class Bullet extends Item {
 	 */
 	@Override
 	public void update() {
+	}
+	
+	@Override
+	public void updatePosition(Point2D moveBy) {
 		double translateX = holder.getNode().getTranslateX();
 		double translateY = holder.getNode().getTranslateY();
 		Point2D playerPosition = new Point2D(translateX, translateY);

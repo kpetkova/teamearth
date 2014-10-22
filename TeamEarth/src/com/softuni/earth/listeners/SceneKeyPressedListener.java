@@ -81,8 +81,7 @@ public class SceneKeyPressedListener implements EventHandler<KeyEvent> {
 		gameObjectManager.addObject(bullet);
 		root.getChildren().add(bullet.getNode());
 		bullet.setShootingDirection(shootingDirection);
-		bullet.update();
-
+		bullet.updatePosition(new Point2D(1f, 0));
 	}
 
 	private void moveDown() {

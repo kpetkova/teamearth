@@ -81,11 +81,37 @@ public class GameWorldInitializer extends GameWorld {
 	 */
 	public void callHandleUpdate(GameObject object) {
 		handleUpdate(object);
+		checkCollisions();
 	}
 
 	@Override
 	protected void handleUpdate(GameObject object) {
-
+		object.update();
+	}
+	
+	@Override
+	protected boolean handleCollision(GameObject spriteA, GameObject spriteB) {
+		 if (spriteA.collide(spriteB)) {
+	           	if(spriteA instanceof Player && spriteB instanceof Skeleton) {
+	           		spriteA.getNode().setVisible(false);
+	           		this.getGameObjectManager().removeObject(spriteA);
+	           		//lower points
+	           		return true;
+	           	}
+	           	
+	           	if(spriteA instanceof Bullet && spriteB instanceof Skeleton) {
+	           		spriteB.getNode().setVisible(false);
+	           		this.getGameObjectManager().removeObject(spriteB);
+	           		return true;
+	           	}
+	           	
+	           	if(spriteB instanceof Bullet && spriteA instanceof Skeleton) {
+	           		spriteA.getNode().setVisible(false);
+	           		this.getGameObjectManager().removeObject(spriteA);
+	           		return true;
+	           	}
+	        }
+	        return false;
 	}
 
 	@Override
@@ -152,7 +178,7 @@ public class GameWorldInitializer extends GameWorld {
 
 	private void initPlayer() {
 		Circle circle = new Circle(20f);
-		circle.setFill(Color.RED);
+		circle.setFill(Color.GREEN);
 		circle.setVisible(false);
 		circle.setId("TestCircle");
 
@@ -168,9 +194,9 @@ public class GameWorldInitializer extends GameWorld {
 	    	
 			for (int i=0; i < 10; i++) {
 				Circle circle = new Circle();
-
+				circle.setFill(Color.RED);
 		        Random rnd = new Random();
-		    	circle.setRadius(rnd.nextDouble());
+		    	circle.setRadius(rnd.nextDouble() + 10f);
 		    	
 		        double newX = 0;
 	                newX = width - (circle.getRadius()  * 2);
@@ -184,16 +210,15 @@ public class GameWorldInitializer extends GameWorld {
 	            circle.setTranslateY(newY);
 	            circle.setVisible(true);
 	            GameObject b = new Skeleton();
-	            b.setMoveBy(new Point2D(rnd.nextDouble(),rnd.nextDouble()));
+	            b.setMoveBy(new Point2D(rnd.nextDouble(), rnd.nextDouble()));
 				circle.setId(b.toString());
 				b.setNode(circle);
-				b.setPosition(new Point2D(rnd.nextDouble(),rnd.nextDouble()));
+				b.setPosition(new Point2D(-rnd.nextDouble()*100, -rnd.nextDouble()*100));
 	 
 	            // add game objects
 	            getGameObjectManager().addObject(b);
 	 
 	            // add to scene
-	            System.out.println(circle);
 	            root.getChildren().add(circle);
 			}
 	 
@@ -205,7 +230,7 @@ public class GameWorldInitializer extends GameWorld {
 		arc.setRadiusY(5.0f);
 		arc.setStartAngle(45.0f);
 		arc.setLength(270.0f);
-		arc.setVisible(true);
+		arc.setVisible(false);
 		arc.setId("Cup");
 		arc.setType(ArcType.ROUND);
 
