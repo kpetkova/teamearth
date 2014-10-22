@@ -19,7 +19,9 @@ public class Bullet extends Item {
 
 	private GameObject holder;
 
-	private boolean isRight;
+	private String shootingDirection;
+	
+	private boolean isTop;
 
 	public GameObject getHolder() {
 		return holder;
@@ -29,13 +31,6 @@ public class Bullet extends Item {
 		this.holder = holder;
 	}
 
-	public boolean isRight() {
-		return isRight;
-	}
-
-	public void setRight(boolean isRight) {
-		this.isRight = isRight;
-	}
 
 	public Bullet(GameObject holder) {
 		super();
@@ -60,14 +55,29 @@ public class Bullet extends Item {
 		smoothMove.setFromX(translateX);
 		smoothMove.setFromY(translateY);
 		// FIXME: Change 1000 to screenWidth()
-		int direction = 0;
-		if (isRight) {
-			direction = 1000;
-		} else {
-			direction = -1000;
+		int leftRightDirection = 0;
+		int upDownDirection = 0;
+		
+		switch (shootingDirection) {
+		case ("west"):
+			leftRightDirection = -1000;
+			break;
+		case ("east"):
+			leftRightDirection = 1000;
+			break;
+		case ("north"):
+			upDownDirection = -1000;
+			break;
+		case ("south"):
+			upDownDirection = 1000;
+			break;
+		default:
+			//some other directions?
+			break;
 		}
-		smoothMove.setByX(this.getPosition().getX() + direction);
-		smoothMove.setByY(this.getPosition().getY());
+		
+		smoothMove.setByX(this.getPosition().getX() + leftRightDirection);
+		smoothMove.setByY(this.getPosition().getY() + upDownDirection);
 		smoothMove.setAutoReverse(true);
 		smoothMove.setCycleCount(1);
 		smoothMove.play();
@@ -78,8 +88,24 @@ public class Bullet extends Item {
 		bulletCircle.setFill(Color.BLUE);
 		bulletCircle.setVisible(true);
 		bulletCircle.setId("Player Bullet");
-		bulletCircle.setTranslateX(holder.getPosition().getX() + 30f);
+		bulletCircle.setTranslateX(holder.getPosition().getX());
 		bulletCircle.setTranslateY(holder.getPosition().getY());
 		setNode(bulletCircle);
+	}
+
+	public boolean isTop() {
+		return isTop;
+	}
+
+	public void setTop(boolean isTop) {
+		this.isTop = isTop;
+	}
+
+	public String getShootingDirection() {
+		return shootingDirection;
+	}
+
+	public void setShootingDirection(String shootingDirection) {
+		this.shootingDirection = shootingDirection;
 	}
 }

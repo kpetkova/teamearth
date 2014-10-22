@@ -62,20 +62,25 @@ public class SceneKeyPressedListener implements EventHandler<KeyEvent> {
 			moveUp();
 		} else if (code.equals(KeyCode.DOWN)) {
 			moveDown();
-		} else if (code.equals(KeyCode.SPACE)) {
-			shoot();
+		} else if (code.equals(KeyCode.A)) {
+			shoot("west");
+		} else if (code.equals(KeyCode.D)) {
+			shoot("east");
+		} else if (code.equals(KeyCode.W)) {
+			shoot("north");
+		} else if (code.equals(KeyCode.X)) {
+			shoot("south");
 		}
+		
 
 		event.consume();
 	}
 
-	private void shoot() {
+	private void shoot(String shootingDirection) {
 		Bullet bullet = new Bullet(player);
 		gameObjectManager.addObject(bullet);
 		root.getChildren().add(bullet.getNode());
-		boolean isRight = player.isFacingRight();
-
-		bullet.setRight(isRight);
+		bullet.setShootingDirection(shootingDirection);
 		bullet.update();
 
 	}
