@@ -8,7 +8,9 @@ import java.util.List;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -22,7 +24,7 @@ import com.softuni.earth.listeners.KeyFrameEventListener;
 public abstract class GameWorld {
 
 	/** The JavaFX Scene as the game surface */
-	private Scene gameSurface;
+	protected Scene gameSurface;
 
 	/** All nodes to be displayed in the game window. */
 	private Group sceneNodes;
@@ -45,8 +47,8 @@ public abstract class GameWorld {
 		return sceneNodes;
 	}
 
-	public void setSceneNodes(Group sceneNodes) {
-		this.sceneNodes = sceneNodes;
+	public void setSceneNodes(Group root) {
+		this.sceneNodes = root;
 	}
 
 	public GameObjectManager getGameObjectManager() {

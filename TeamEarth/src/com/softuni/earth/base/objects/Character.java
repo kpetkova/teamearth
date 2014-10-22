@@ -37,6 +37,8 @@ public abstract class Character extends GameObject {
 
 	protected boolean isAlive;
 
+	public Character(){};
+	
 	protected Character(String name, Point2D position, int healthPoints,
 			int defensePoints, int manaPoints, int range) {
 		this.name = name;

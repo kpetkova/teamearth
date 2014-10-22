@@ -6,6 +6,8 @@ import javafx.geometry.Point2D;
 public class Enemy extends Character {
 	public static final boolean isEnemy = true;
 	
+	public Enemy() {} 
+	
 	protected Enemy(String name, Point2D position, int healthPoints,
 			int defensePoints, int manaPoints, int range) {
 		super(name, position, healthPoints, defensePoints, manaPoints, range);

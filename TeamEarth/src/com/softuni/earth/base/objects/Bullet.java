@@ -88,8 +88,11 @@ public class Bullet extends Item {
 		bulletCircle.setFill(Color.BLUE);
 		bulletCircle.setVisible(true);
 		bulletCircle.setId("Player Bullet");
-		bulletCircle.setTranslateX(holder.getPosition().getX());
-		bulletCircle.setTranslateY(holder.getPosition().getY());
+		Point2D playerPosition = holder.getPosition();
+		double xPosition = playerPosition == null ? 0 : playerPosition.getX();
+		double yPosition = playerPosition == null ? 0 : playerPosition.getY();
+		bulletCircle.setTranslateX(xPosition);
+		bulletCircle.setTranslateY(yPosition);
 		setNode(bulletCircle);
 	}
 

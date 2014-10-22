@@ -5,6 +5,7 @@ package com.softuni.earth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
@@ -25,6 +26,7 @@ import com.softuni.earth.base.GameWorld;
 import com.softuni.earth.base.objects.Bullet;
 import com.softuni.earth.base.objects.Cup;
 import com.softuni.earth.base.objects.Player;
+import com.softuni.earth.base.objects.Skeleton;
 import com.softuni.earth.listeners.ExitButtonOnClickListener;
 import com.softuni.earth.listeners.SceneKeyPressedListener;
 import com.softuni.earth.listeners.StartGameButtonOnClickListener;
@@ -88,16 +90,16 @@ public class GameWorldInitializer extends GameWorld {
 
 	@Override
 	public void initGame(Stage primaryStage) {
-		root = new Group();
-
+		this.root = new Group();
 		// Create the scene
 		// Create main menu and characters
 		initCharacters();
-		createMainMenu(root);
-
-		setSceneNodes(root);
+		createMainMenu();
 		Scene scene = createScene();
 		setGameSurface(scene);
+		
+		
+		setSceneNodes(this.root);
 		primaryStage.setScene(getGameSurface());
 		primaryStage.setTitle(this.getGameTitle());
 		primaryStage.show();
@@ -106,12 +108,13 @@ public class GameWorldInitializer extends GameWorld {
 	/**
 	 * Creates the button for the main menu in a vertical order and sets their
 	 * appropriate click listeners.
+	 * @param root2 
 	 * 
 	 * @param charactersList
 	 * 
 	 * @param border
 	 */
-	private void createMainMenu(Group root) {
+	private void createMainMenu() {
 		// Create a layout to hold the menu buttons.
 		BorderPane border = new BorderPane();
 
@@ -141,45 +144,83 @@ public class GameWorldInitializer extends GameWorld {
 		root.getChildren().add(border);
 	}
 
-	private void initCharacters() {
+	private void initCharacters() {		
+		initPlayer();
+		initItems();
+		initSkeletons();
+	}
+
+	private void initPlayer() {
 		Circle circle = new Circle(20f);
 		circle.setFill(Color.RED);
 		circle.setVisible(false);
 		circle.setId("TestCircle");
 
-		GameObject circlePlayer = new Player("Asd", null, 1, 1, 1, 1);
+		GameObject circlePlayer = new Player("Pesho", new Point2D(50, 50), 100, 100, 100, 1);
 		circlePlayer.setNode(circle);
-		circlePlayer.setPosition(new Point2D(50, 50));
-
-		List<Node> itemsList = initItems();
-
-//		GameObject bullet = new Bullet(circlePlayer);
-
 		getGameObjectManager().addObject(circlePlayer);
 //		getGameObjectManager().addObject(bullet);
 		root.getChildren().add(circle);
-		root.getChildren().addAll(itemsList);
-//		root.getChildren().add(bullet.getNode());
 	}
 
-	private List<Node> initItems() {
+	private void initSkeletons() {
+
+	    	
+			for (int i=0; i < 10; i++) {
+				Circle circle = new Circle();
+
+		        Random rnd = new Random();
+		    	circle.setRadius(rnd.nextDouble());
+		    	
+		        double newX = 0;
+	                newX = width - (circle.getRadius()  * 2);
+	            
+	            double newY = rnd.nextInt((int) height);
+	            if (newY > (height - (circle.getRadius() * 2))) {
+	                newY = height - (circle.getRadius() * 2);
+	            }
+	 
+	            circle.setTranslateX(newX);
+	            circle.setTranslateY(newY);
+	            circle.setVisible(true);
+	            GameObject b = new Skeleton();
+	            b.setMoveBy(new Point2D(rnd.nextDouble(),rnd.nextDouble()));
+				circle.setId(b.toString());
+				b.setNode(circle);
+				b.setPosition(new Point2D(rnd.nextDouble(),rnd.nextDouble()));
+	 
+	            // add game objects
+	            getGameObjectManager().addObject(b);
+	 
+	            // add to scene
+	            System.out.println(circle);
+	            root.getChildren().add(circle);
+			}
+	 
+	}
+
+	private void initItems() {
 		Arc arc = new Arc();
 		arc.setRadiusX(5.0f);
 		arc.setRadiusY(5.0f);
 		arc.setStartAngle(45.0f);
 		arc.setLength(270.0f);
-		arc.setVisible(false);
+		arc.setVisible(true);
 		arc.setId("Cup");
 		arc.setType(ArcType.ROUND);
 
 		List<Node> itemsList = new ArrayList<Node>();
 		itemsList.add(arc);
+		
+		List<GameObject> objectsList = new ArrayList<GameObject>();
+		
 
 		GameObject item = new Cup();
 		item.setNode(arc);
 		item.setPosition(new Point2D(200, 200));
-		getGameObjectManager().addObject(item);
-		return itemsList;
+		objectsList.add(item);
+		getGameObjectManager().addObjects(objectsList);
+		root.getChildren().addAll(itemsList);
 	}
 
 	private void initStageSquare() {
