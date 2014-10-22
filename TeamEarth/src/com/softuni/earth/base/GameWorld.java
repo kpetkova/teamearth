@@ -8,9 +8,7 @@ import java.util.List;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -119,4 +117,23 @@ public abstract class GameWorld {
 	public void beginGame() {
 		getGameLoop().play();
 	}
+	
+	public void checkCollisions() {
+		for (GameObject spriteA:gameObjectManager.getAllObjects()){
+            for (GameObject spriteB:gameObjectManager.getAllObjects()){
+                if (handleCollision(spriteA, spriteB)) {
+                    // The break helps optimize the collisions
+                    //  The break statement means one object only hits another
+                    // object as opposed to one hitting many objects.
+                    // To be more accurate comment out the break statement.
+                    break;
+                }
+            }
+        }
+	}
+	
+	protected boolean handleCollision(GameObject spriteA, GameObject spriteB) {
+		return false;
+    }
+ 
 }
